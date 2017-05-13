@@ -5,7 +5,7 @@
 
 Snek::Snek(const Location & loc){
 	segments[0].initHead(loc);
-}
+}//randomithing
 
 void Snek::moveBy(const Location& delta_loc) {
 	for (int i = nSegs - 1; i > 0; i--) {
