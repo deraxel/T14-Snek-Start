@@ -87,7 +87,7 @@ void Game::UpdateModel(){
 					growSnake--;
 				}
 				snek.moveBy(delta_loc);
-				snekMoveCNT = 0.0f;
+				snekMoveCNT = snekMovePer-snekMoveCNT;
 				moveExc = true;
 				if(next==goal.getLoc()){
 					goal.respawn(rng,brd,snek);
