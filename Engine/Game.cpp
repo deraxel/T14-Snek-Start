@@ -73,14 +73,18 @@ void Game::UpdateModel(){
 				snek.isInTile(next,0)||
 				blockTest) {
 				gameOver = true;
-			}
-			else {
+			}else {
 				if (next==goal.getLoc()) {
-					snek.grow();
+					//snek.grow();
+					growSnake=growSnake+growSize;
 					eatCount++;
 					if(eatCount%eatCycle==0){
 						blockCount++;
 					}
+				}
+				if(growSnake>0){
+					snek.grow();
+					growSnake--;
 				}
 				snek.moveBy(delta_loc);
 				snekMoveCNT = 0.0f;

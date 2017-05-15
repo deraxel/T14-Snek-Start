@@ -38,4 +38,6 @@ private:
 	bool gameOver = false;
 	bool gameOn = false;
 	Block block[10000];
+	static constexpr int growSize=1;
+	int growSnake=0;
 };
