@@ -8,6 +8,7 @@
 #include "snek.h"
 #include "goal.h"
 #include "block.h"
+#include "framerate.h"
 
 class Game
 {
@@ -17,6 +18,7 @@ public:
 	Game& operator=( const Game& ) = delete;
 	void Go();
 private:
+	FrameRate fr;
 	void ComposeFrame();
 	void UpdateModel();
 	bool moveExc = true;
@@ -27,9 +29,9 @@ private:
 	Snek snek;
 	Location delta_loc = { 1,0 };
 	Goal goal;
-	static constexpr int permSnake = 60;
-	int snekMovePer=1;
-	int snekMoveCNT = 0;
+	static constexpr float permSnake = 60;
+	float snekMovePer=1;
+	float snekMoveCNT = 0;
 	int eatCount=0;
 	int eatCycle=5;
 	int blockCount=0;

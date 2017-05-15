@@ -3,6 +3,7 @@
 #include "snek.h"
 #include "SpriteCodex.h"
 #include "block.h"
+#include "framerate.h"
 
 Game::Game(MainWindow& wnd)
 	:
@@ -27,16 +28,18 @@ void Game::Go()
 }
 
 void Game::UpdateModel(){
+	const float dt=fr.mark();
 	if(wnd.kbd.KeyIsPressed(VK_SPACE)){
-		snekMovePer=10;
+		snekMovePer=10.0f;
 		if(wnd.kbd.KeyIsPressed(VK_CONTROL)){
-			snekMovePer=3;
+			snekMovePer=3.0f;
 		} else{
-			snekMovePer=10;
+			snekMovePer=10.0f;
 		}
 	} else{
 		snekMovePer=permSnake;
 	}
+	snekMovePer=snekMovePer/60.0f;
 	if (!gameOver && gameOn) {
 		brd.drawBoarder();
 		if (wnd.kbd.KeyIsPressed(VK_UP) && !delta_loc.last(0, 1) && moveExc && !delta_loc.last(0,-1)) {
@@ -55,7 +58,7 @@ void Game::UpdateModel(){
 			delta_loc = { -1,0 };
 			moveExc = false;
 		}
-		snekMoveCNT++;
+		snekMoveCNT=snekMoveCNT+dt;
 		if (snekMoveCNT >= snekMovePer) {
 			const Location next=snek.getNextHead(delta_loc);
 			bool blockTest=false;
@@ -80,7 +83,7 @@ void Game::UpdateModel(){
 					}
 				}
 				snek.moveBy(delta_loc);
-				snekMoveCNT = 0;
+				snekMoveCNT = 0.0f;
 				moveExc = true;
 				if(next==goal.getLoc()){
 					goal.respawn(rng,brd,snek);
