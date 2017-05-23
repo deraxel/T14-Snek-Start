@@ -69,6 +69,9 @@
     <ClInclude Include="framerate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="controllerDTK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -111,6 +114,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="framerate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="controllerDTK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

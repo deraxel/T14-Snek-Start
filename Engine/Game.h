@@ -9,6 +9,7 @@
 #include "goal.h"
 #include "block.h"
 #include "framerate.h"
+#include "controllerDTK.h"
 
 class Game
 {
@@ -40,4 +41,5 @@ private:
 	Block block[10000];
 	static constexpr int growSize=1;
 	int growSnake=0;
+	ControllerDTK* Player1;
 };

@@ -14,6 +14,7 @@ Game::Game(MainWindow& wnd)
 	snek({brd.getBxStart(),brd.getByStart()}),
 	goal(rng,brd,snek)
 {
+	Player1=new ControllerDTK(1);
 	for(int i=0; i<10000; i++){
 		block[i]=Block(brd);
 	}
@@ -29,9 +30,9 @@ void Game::Go()
 
 void Game::UpdateModel(){
 	const float dt=fr.mark();
-	if(wnd.kbd.KeyIsPressed(VK_SPACE)){
+	if(wnd.kbd.KeyIsPressed(VK_SPACE)||(Player1->getState().Gamepad.wButtons==4096)||(Player1->getState().Gamepad.wButtons==12288)){
 		snekMovePer=10.0f;
-		if(wnd.kbd.KeyIsPressed(VK_CONTROL)){
+		if(wnd.kbd.KeyIsPressed(VK_CONTROL)||(Player1->getState().Gamepad.wButtons==12288)){
 			snekMovePer=3.0f;
 		} else{
 			snekMovePer=10.0f;
@@ -42,19 +43,19 @@ void Game::UpdateModel(){
 	snekMovePer=snekMovePer/60.0f;
 	if (!gameOver && gameOn) {
 		brd.drawBoarder();
-		if (wnd.kbd.KeyIsPressed(VK_UP) && !delta_loc.last(0, 1) && moveExc && !delta_loc.last(0,-1)) {
+		if ((wnd.kbd.KeyIsPressed(VK_UP)||(Player1->getState().Gamepad.sThumbLY>20000))&&!delta_loc.last(0,1)&&moveExc&&!delta_loc.last(0,-1)){
 			delta_loc = { 0,-1 };
 			moveExc = false;
 		}
-		else if (wnd.kbd.KeyIsPressed(VK_DOWN) && !delta_loc.last(0, -1) && moveExc&&!delta_loc.last(0,1)) {
+		else if ((wnd.kbd.KeyIsPressed(VK_DOWN)||(Player1->getState().Gamepad.sThumbLY<-20000))&& !delta_loc.last(0, -1) && moveExc&&!delta_loc.last(0,1)) {
 			delta_loc = { 0,1 };
 			moveExc = false;
 		}
-		else if (wnd.kbd.KeyIsPressed(VK_RIGHT) && !delta_loc.last(-1, 0) && moveExc&&!delta_loc.last(1,0)) {
+		else if ((wnd.kbd.KeyIsPressed(VK_RIGHT)||(Player1->getState().Gamepad.sThumbLX>20000))&& !delta_loc.last(-1, 0) && moveExc&&!delta_loc.last(1,0)){
 			delta_loc = { 1,0 };
 			moveExc = false;
 		}
-		else if (wnd.kbd.KeyIsPressed(VK_LEFT) && !delta_loc.last(1, 0) && moveExc&&!delta_loc.last(-1,0)) {
+		else if ((wnd.kbd.KeyIsPressed(VK_LEFT)||(Player1->getState().Gamepad.sThumbLX<-20000))&& !delta_loc.last(1, 0) && moveExc&&!delta_loc.last(-1,0)){
 			delta_loc = { -1,0 };
 			moveExc = false;
 		}
@@ -98,7 +99,7 @@ void Game::UpdateModel(){
 			}
 		}
 	} else{
-		if(wnd.kbd.KeyIsPressed(VK_RETURN)){
+		if(wnd.kbd.KeyIsPressed(VK_RETURN)||Player1->getState().Gamepad.wButtons==XINPUT_GAMEPAD_START){
 			gameOn=true;
 		}
 	}
